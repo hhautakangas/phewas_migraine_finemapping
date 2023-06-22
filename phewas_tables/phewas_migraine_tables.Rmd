@@ -1,0 +1,90 @@
+---
+title: "PheWAS of fine-mapped migraine variants in FinnGen R10"
+output: html_document
+date: "2023-06-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Table 1. Migraine candidate variants in FinnGen R10
+```{r tables, echo =FALSE}
+library(data.table)
+library(DT)
+
+# load data
+
+# option1
+
+
+dt <- fread("phewas_FGR10_meta_betas_flipped_for_shiny_plot2.txt", data.table=F)
+dt$pval_FGR10 <- as.numeric(format(dt$pval_FGR10, digits = 3, scientific = 5))
+colnames(dt)[ncol(dt)] <- "category_FG"
+#colnames(dt)[5:6] <- c("effect allele", "other allele")
+# change columns for factors, for table filtering
+for( ii in c(1:8,13:15)){
+  dt[,ii] <- as.factor( dt[,ii])
+}
+
+DT::datatable(dt, rownames = FALSE, filter = 'top',
+                  colnames= c("locus name","candidate rsid", "locus (lead rsid)","chr" ,"position","effect allele", "other allele" ,"nearest genes", "beta (FGR10)", "beta (migraine)", "pval (FGR10)", "pval (migraine)", "phenocode (FGR10)", "phenotype", "category (FG)"),
+              options = list(pageLength = 5, autoWidth = TRUE)
+                  )
+
+```
+
+
+
+## Table 2. Functional variants among the credible sets
+
+
+```{r, echo =FALSE}
+
+dtf <- fread("phewas_FGR10_functional_meta_betas_flipped_for_shiny_plot2.txt", data.table=F)
+dtf$pval_FGR10 <- as.numeric(format(dtf$pval_FGR10, digits = 3, scientific = 5))
+colnames(dtf)[ncol(dtf)] <- "category_FG"
+#colnames(dtf)[5:6] <- c("effect allele", "other allele")
+colnames(dtf)[2] <- "functional_variant"
+# change columns for factors, for table filtering
+for( ii in c(1:9,14:16)){
+  dtf[,ii] <- as.factor( dtf[,ii])
+}
+
+DT::datatable(dtf, rownames = FALSE, filter = 'top',
+                 colnames= c("locus name","functional variant rsid", "locus (lead rsid)","chr" ,"position","effect allele", "other allele","function (VEP)" ,"gene", "beta (FGR10)", "beta (migraine)", "pval (FGR10)", "pval (migraine)", "phenocode (FGR10)", "phenotype", "category (FG)"),
+                              options = list(pageLength = 5, autoWidth = TRUE)
+                  )
+    
+
+```
+
+
+
+## Table 3. Variants with PIP > 0.1 among the credible sets
+
+```{r, echo =FALSE}
+
+
+
+dth <- fread("phewas_FGR10_high_pip0.1_meta_betas_flipped_for_shiny_plot2.txt", data.table=F)
+dth$pval_FGR10 <- as.numeric(format(dth$pval_FGR10, digits = 3, scientific = 5))
+colnames(dth)[ncol(dth)] <- "category_FG"
+#colnames(dth)[6:7] <- c("effect allele", "other allele")
+colnames(dth)[2] <- "credible_set_variant"
+# change columns for factors, for table filtering
+for( ii in c(1,2,4:9,14:16)){
+  dth[,ii] <- as.factor( dth[,ii])
+}
+
+
+
+
+
+DT::datatable(dth, rownames = FALSE, filter = 'top',
+              
+                  colnames= c("locus name", "credible set variant rsid","PIP credible set variant" ,"locus (lead rsid)","chr" ,"position","effect allele", "other allele", "nearest genes", "beta (FGR10)", "beta (migraine)", "pval (FGR10)", "pval (migraine)", "phenocode (FGR10)", "phenotype", "category (FG)"),
+                 options = list(pageLength = 5, autoWidth = TRUE))
+
+```
