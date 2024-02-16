@@ -14,10 +14,11 @@ library(GetoptLong)
 # load data
 # for 3 color heatmap!
 # option1
-
+# only 181 variants
+inc <- fread("data/top_config181_rsids_for_phewas.txt", data.table=F, header=F)
 hm <- fread("data/temp_for_phewas_candidate_variants_FGR10_heatmap_3color2.txt", data.table=F)
 #hm <- fread("data/temp_for_phewas_candidate_variants_FGR10_heatmap.txt", data.table=F)
-matrix = as.matrix(hm[,2:202])
+matrix = as.matrix(hm[,2:ncol(hm)])
 row.names(matrix) <- hm[,1]
 
 dt <- fread("data/phewas_FGR10_meta_betas_flipped_for_shiny_plot2.txt", data.table=F)
@@ -313,7 +314,7 @@ server <- function(input, output, session){
     column_order = NULL
     row_km = NULL
     column_km = NULL
-    matrix = as.matrix(hm[,2:202])
+    matrix = as.matrix(hm[,2:ncol(hm)])
     row.names(matrix) <- hm[,1]
     ht = Heatmap(matrix,  name = "migraine",
                  cluster_rows = cluster_rows, cluster_columns = cluster_columns,
