@@ -38,6 +38,7 @@ DT::datatable(dt, rownames = FALSE, filter = 'top',
 
 
 ## Table 2. Functional variants among the credible sets
+Targeted PheWAS with neurological and cardiovascular phenotypes in FinnGen R10 
 
 
 ```{r, echo =FALSE}
@@ -63,6 +64,7 @@ DT::datatable(dtf, rownames = FALSE, filter = 'top',
 
 
 ## Table 3. Variants with PIP > 0.1 among the credible sets
+Targeted PheWAS with neurological and cardiovascular phenotypes in FinnGen R10 
 
 ```{r, echo =FALSE}
 
