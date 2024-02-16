@@ -1,7 +1,7 @@
 ---
 title: "PheWAS of fine-mapped migraine variants in FinnGen R10"
 output: html_document
-date: "2023-06-22"
+date: "2024-02-14"
 ---
 
 ```{r setup, include=FALSE}
